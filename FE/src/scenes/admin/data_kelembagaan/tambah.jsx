@@ -1,18 +1,27 @@
 import React from "react";
 import { useState } from "react";
-import { Button, Modal, useTheme, Typography, Grid, TextField, Divider, Fade } from "@mui/material";
+import { Button, Modal, useTheme, Typography, Grid, TextField, Divider, Fade, Dialog, DialogTitle, DialogActions } from "@mui/material";
 import { tokens } from "../../../theme";
 import { headerData } from "../../../data/headerCostum";
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
+import MapDialog from "./map";
+import { Box } from "@mui/system";
 
+const center = {
+    lat: -5.160543,
+    lng: 119.436077,
+}
 
-const TambahAnak = ({execute}) => {
+const TambahAnak = ({ execute }) => {
     const [openModal, setOpenModal] = useState(false);
     const [data, setData] = useState({})
     const handleOpenModal = () => setOpenModal(true);
     const handleCloseModal = () => setOpenModal(false);
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
+
+    const [dialogMapOpen, setDialogMapOpen] = useState(false);
+    const [position, setPosition] = useState(center)
 
     const style = {
         position: 'absolute',
@@ -29,33 +38,73 @@ const TambahAnak = ({execute}) => {
     const field = [
         {
             id: "nama",
-            label: "Nama",
-            placeholder: "Silahkan Masukkan Nama Anda",
-            type: "text"
+            label: "Nama Tempat Ibadah",
+            placeholder: "Silahkan Masukkan Nama Tempat Ibadah",
+            type: "text",
+            format: null
         },
         {
-            id: "opd",
-            label: "Instansi",
-            placeholder: "Silahkan Masukkan Instansi Anda",
-            type: "text"
+            id: "nama",
+            label: "Tanggal Di Dirikan",
+            placeholder: "Silahkan Masukkan Tanggal Pendirian",
+            type: "text",
+            format: null
         },
         {
-            id: "jabatan",
-            label: "Jabatan",
-            placeholder: "Silahkan Masukkan Jabatan",
-            type: "text"
+            id: "nama",
+            label: "Nama Ketua",
+            placeholder: "Silahkan Masukkan Nama Ketua",
+            type: "text",
+            format: null
         },
         {
-            id: "no_hp",
-            label: "Nomor Handphone",
-            placeholder: "Silahkan Masukkan No HP",
-            type: "text"
+            id: "jumlah_jiwa",
+            label: "Jumlah Jiwa",
+            placeholder: "Silahkan Masukkan Jumlah Jiwa",
+            type: "text",
+            format: null
         },
         {
-            id: "qr",
-            label: "QR Code",
-            placeholder: "Silahkan Masukkan QR Code",
-            type: "text"
+            id: "nama",
+            label: "Jumlah Kepala Keluarga",
+            placeholder: "Masukkan Jumlah Kepala Keluarga",
+            type: "text",
+            format: null
+        },
+        {
+            id: "nama",
+            label: "Jumlah Pria",
+            placeholder: "Masukkan Jumlah Penduduk Pria",
+            type: "text",
+            format: null
+        },
+        {
+            id: "nama",
+            label: "Jumlah Wanita",
+            placeholder: "Masukkan Jumlah Penduduk Wanita",
+            type: "text",
+            format: null
+        },
+        {
+            id: "nama",
+            label: "Jumlah PNS",
+            placeholder: "Masukkan Jumlah Penduduk PNS",
+            type: "text",
+            format: null
+        },
+        {
+            id: "nama",
+            label: "Jumlah Petani / Nelayan",
+            placeholder: "Masukkan Jumlah Pekerja Petani atau Nelayan",
+            type: "text",
+            format: null
+        },
+        {
+            id: "nama",
+            label: "Jumlah Swasta",
+            placeholder: "Masukkan Jumlah Pekerja Swasta",
+            type: "text",
+            format: null
         },
     ]
 
@@ -80,6 +129,31 @@ const TambahAnak = ({execute}) => {
 
     return (
         <div>
+            <Dialog onClose={() => setDialogMapOpen(false)} open={dialogMapOpen} fullWidth>
+                <DialogTitle>
+                    <Typography
+                        variant="h5"
+                        fontWeight={700}
+                        textTransform={'capitalize'}
+                    >
+                        {'Pilih Point Alamat'}
+                    </Typography>
+                </DialogTitle>
+                <Box height={'60vh'} width={'100%'} sx={{ paddingX: 2 }}>
+                    <MapDialog pos={position} execute={setPosition} />
+                </Box>
+                <DialogActions>
+                    <Button
+                        variant="contained"
+                        sx={{
+                            textTransform: 'none',
+                        }}
+                        onClick={() => setDialogMapOpen(false)}
+                    >
+                        {'Tutup'}
+                    </Button>
+                </DialogActions>
+            </Dialog>
             <Button variant='contained' sx={{
                 backgroundColor: colors.greenAccent[600],
                 color: colors.grey[100],
@@ -108,7 +182,7 @@ const TambahAnak = ({execute}) => {
                     <Grid container xs={11} md={7} lg={5} sx={style}>
                         <Grid item container justifyContent={"space-between"} alignItems={"end"}>
                             <Typography variant="h4">
-                                Tambah Pendaftar
+                                {'Tambah Data Kelembagaan'}
                             </Typography>
                             <Button
                                 variant="text"
@@ -127,27 +201,33 @@ const TambahAnak = ({execute}) => {
                         <Grid item xs={12} paddingTop={2}>
                             <Divider />
                         </Grid>
-                        <Grid container item m={1}>
+                        <Grid container height={500} overflow={'scroll'} item m={1}>
                             <Grid item xs={12}>
                                 {
                                     field.map((item) => (
-                                        <TextField
-                                            id={item.id}
-                                            label={item.label}
-                                            placeholder={item.placeholder}
-                                            variant="outlined"
-                                            size="small"
-                                            fullWidth
-                                            sx={{
-                                                marginTop: "10px",
-                                                ":target-text": {
-                                                    borderColor: colors.greenAccent[400]
-                                                }
-                                            }}
-                                            onInput={(e) => setData({...data, [item.id]: e.target.value})}
-                                        />
+                                        <Grid container direction={'row'}>
+                                            <Typography>
+                                                {item.label}
+                                            </Typography>
+                                            <TextField
+                                                id={item.id}
+                                                label={''}
+                                                placeholder={item.placeholder}
+                                                variant="outlined"
+                                                size="small"
+                                                fullWidth
+                                                sx={{
+                                                    marginBottom: "10px",
+                                                    ":target-text": {
+                                                        borderColor: colors.greenAccent[400]
+                                                    }
+                                                }}
+                                                onInput={(e) => setData({ ...data, [item.id]: e.target.value })}
+                                            />
+                                        </Grid>
                                     ))
                                 }
+                                <Button onClick={() => setDialogMapOpen(true)}>Pilih Alamat</Button>
                             </Grid>
                         </Grid>
                         <Grid container item xs={12} m={1} justifyContent={"end"}>

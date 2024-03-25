@@ -15,7 +15,8 @@ import {
     FormControl,
     InputLabel,
     Select,
-    MenuItem
+    MenuItem,
+    Typography
 } from '@mui/material';
 import TambahAnak from './tambah';
 import EditDataAnak from './edit';
@@ -80,6 +81,7 @@ export default function Kelembagaan() {
                 return res.json()
             })
             .then(data => {
+                console.log(data)
                 setRows(data)
             })
             .catch(err => {
@@ -108,13 +110,15 @@ export default function Kelembagaan() {
     //Filter Hanlde
     const getKabupatenData = useCallback(() => {
         let kabupaten = [];
-        rows.forEach((items) => {
-            if (kabupaten.includes(items.nama_kabupaten)) {
-                return
-            } else {
-                kabupaten.push(items.nama_kabupaten);
-            }
-        })
+        if(rows){
+            rows.map((items) => {
+                if (kabupaten.includes(items.nama_kabupaten)) {
+                    return
+                } else {
+                    kabupaten.push(items.nama_kabupaten);
+                }
+            })
+        }
         setKabupatenData(kabupaten);
     }, [rows, setKabupatenData])
 
@@ -134,15 +138,26 @@ export default function Kelembagaan() {
             getDataPendaftar()
         } else {
             setCopyList(rows)
-            getopdamatanData()
+            getKabupatenData()
         }
     },
-        [getDataPendaftar, rows, getopdamatanData]
+        [getDataPendaftar, rows, getKabupatenData]
     )
 
     return (
         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-            <Grid container xs={12} m={1} alignItems={'center'} justifyContent={'space-between'}>
+            <Grid container sx={{
+                width: '100%',
+                marginX: 1,
+                marginBottom: 3,
+                marginTop: 2,
+                fontWeight: 700,
+            }} display={'flex'}>
+                <Typography variant='h2' fontWeight={700}  color={'#1E945A'}>
+                    {'Data Kelembagaan'}
+                </Typography>
+            </Grid>
+            <Grid container m={1} alignItems={'center'} justifyContent={'space-between'}>
                 <Grid item xs={6} md={5} lg={3}>
                     <TextField
                         id="outlined-textarea"

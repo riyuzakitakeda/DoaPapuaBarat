@@ -1,7 +1,7 @@
 import { CircularProgress, Grid, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
-import Logo from '../../assets/image/logoPemkot.png';
+import Logo from '../../assets/image/logo_refleksi.png';
 
 const SplashScreen = () => {
     return (
@@ -29,7 +29,7 @@ const SplashScreen = () => {
                             paddingX: 3,
                             marginY: 2
                         }}>
-                            <img src={Logo} alt="karebosi" width={'100px'} />
+                            <img src={Logo} alt="edata" width={'350px'} />
                         </Box>
                         <Box
                             sx={{
@@ -41,7 +41,7 @@ const SplashScreen = () => {
                             }}
                         >
                             <CircularProgress sx={{
-                                color: "#5D0000",
+                                color: "#2B5743",
                             }}
                             size={50}
                             thickness={7}
@@ -65,13 +65,13 @@ const SplashScreen = () => {
                             alignItems: 'center',
                             paddingX: 3,
                             marginY: 1,
-                            color: '#5D0000',
+                            color: '#2B5743',
                         }}>
                             <Typography fontWeight={700}>
-                                RAKORSUS 2024
+                                E-Data Keagamaan
                             </Typography>
                             <Typography fontWeight={700}>
-                                PEMERINTAH KOTA MAKASSAR
+                                PEMERINTAH PROVINSI PAPUA BARAT
                             </Typography>
                         </Box>
                     </Box>

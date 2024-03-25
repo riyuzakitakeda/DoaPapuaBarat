@@ -12,12 +12,14 @@ import Login from './scenes/login';
 import SplashScreen from './scenes/global/spashscreen';
 import Dashboard from './scenes/admin/dashboard';
 import SideMenu from './scenes/global/Menu';
-import Home from './scenes/home';
 import DaftarAdmin from './scenes/admin/admin';
 import DataKabupaten from './scenes/admin/data_kabupaten';
 import Kelembagaan from './scenes/admin/data_kelembagaan';
 import DataDistrik from './scenes/admin/data_distrik';
 import Datadesa from './scenes/admin/data_desa';
+import Home from './scenes/home/home';
+import JumlahDenominasi from './scenes/admin/jumlah_denominasi';
+import RekapanData from './scenes/admin/rekapan_data';
 
 
 
@@ -40,6 +42,8 @@ const App = () => {
             <Route path="datadesa" element={<Datadesa />} />
             <Route path="admin" element={<DaftarAdmin />} />
             <Route path="kelembagaan" element={<Kelembagaan />} />
+            <Route path="dedominasi" element={<JumlahDenominasi />} />
+            <Route path="rekapandata" element={<RekapanData />} />
           </Route>
         </Route>
       )

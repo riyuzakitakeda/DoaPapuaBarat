@@ -121,9 +121,10 @@ const Item = ({ title, to, icon, selected, setSelected, isOpen }) => {
                     justifyContent: isOpen ? 'flex-start' : 'center',
                     alignContent: isOpen ? 'center' : 'center',
                     px: 2.5,
-                    color: '#FFF',
+                    border: 1,
+                    color: '#3B8045',
                     // backgroundColor: (selected === to) ? colors.blueAccent[400] : colors.primary[400],
-                    borderRadius: 10,
+                    borderRadius: 3,
                     marginX: isOpen ? 2 : 0.5,
                     marginY: 1,
                     ":hover": {
@@ -131,8 +132,8 @@ const Item = ({ title, to, icon, selected, setSelected, isOpen }) => {
                     },
                     background:
                         (selected === to)
-                            ? 'linear-gradient(179deg, #E8661D -5.66%, rgba(254, 177, 32, 0.89) 104.17%, rgba(255, 179, 32, 0.89) 104.18%)'
-                            : '#6F0606'
+                            ? 'linear-gradient(90deg, #2B5743 -5.66%, #74B295 104.17%, #74B295 104.18%)'
+                            : '#FFFFFF'
                 }}
                 component={Link}
                 to={to}
@@ -158,7 +159,7 @@ const Item = ({ title, to, icon, selected, setSelected, isOpen }) => {
                         <ListItemText primary={title}
                             sx={{
                                 opacity: isOpen ? 1 : 0,
-                                color: (selected === to) ? colors.primary[400] : colors.grey[900],
+                                color: (selected !== to) ? '#3B8045' : '#FFFFFF',
                                 textAlign: 'left',
                                 display: isOpen ? 'visible' : 'none',
                             }}
@@ -210,7 +211,7 @@ const SideMenu = (props) => {
         <Box
             sx={{
                 // borderRight: '1px solid var(--black-10, rgba(0, 0, 0, 0.10))',
-                background: `url(${bg_left})`,
+                backgroundColor: '#A4CFC1',
                 boxShadow: '0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
                 backgroundSize: 'cover',
                 backgroundRepeat: 'no-repeat'
@@ -271,14 +272,24 @@ const SideMenu = (props) => {
                     setSelected={setSelected}
                     isOpen={open}
                 />
+                <Item
+                    title="Jumlah Dedominasi"
+                    to="dedominasi"
+                    icon={<PeopleAltRoundedIcon sx={{ fontSize: iconMenuSize }} />}
+                    selected={selected}
+                    setSelected={setSelected}
+                    isOpen={open}
+                />
+                <Item
+                    title="Table Rekapan Data"
+                    to="rekapandata"
+                    icon={<PeopleAltRoundedIcon sx={{ fontSize: iconMenuSize }} />}
+                    selected={selected}
+                    setSelected={setSelected}
+                    isOpen={open}
+                />
             </List>
             <Divider />
-            <Typography align='center' variant='h6' fontWeight={700}>
-                {open ? 'Absensi Melalui QR Code Ini:' : ''}
-            </Typography>
-            <Box alignItems={'center'} paddingX={6}>
-                <img src={qr_code} alt='qr' width={'100%'} />
-            </Box>
         </Box>
     );
 
@@ -288,10 +299,10 @@ const SideMenu = (props) => {
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
-            <AppBar position="fixed" open={open} >
+            <AppBar elevation={1} position="fixed" open={open} >
                 <Toolbar style={{
                     borderBottom: '1px solid #F1D088',
-                    background: `#801111`,
+                    background: `#A4CFC1`,                    
                     backgroundRepeat: 'no-repeat',
                     backgroundSize: '100%',
                 }}>
@@ -322,17 +333,8 @@ const SideMenu = (props) => {
                                     {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
                                 </IconButton>
                             </Grid>
-                            <Grid item>
-                                <img src={logo_pemkot} alt='pemkot' width={50} />
-                            </Grid>
                         </Grid>
                         <Grid item container alignItems={'center'}>
-                            <Grid item>
-                                <img src={logo_tagline} alt='tagline' height={50} />
-                            </Grid>
-                            <Grid item>
-                                <img src={logo_makan_enak} alt='makan enak' height={50} />
-                            </Grid>
                             <Grid item container py={2}>
                                 <Tooltip title="Account settings">
                                     <IconButton

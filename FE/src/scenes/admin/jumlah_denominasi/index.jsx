@@ -1,89 +1,59 @@
-import React, { useCallback } from 'react';
-import { useState, useEffect } from 'react';
-import Paper from '@mui/material/Paper';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
-import TableRow from '@mui/material/TableRow';
-import TextField from '@mui/material/TextField';
-import { Grid, Typography } from '@mui/material';
-import TambahUser from './tambah';
-import { headerData } from '../../../data/headerCostum';
-import EditDatadesa from './edit';
-import DeleteDatadesa from './delete';
+import {
+    Grid,
+    Typography,
+    Paper,
+    TextField,
+    TableContainer,
+    Table,
+    TableHead,
+    TableRow,
+    TableCell,
+    TableBody,
+    TablePagination
+} from '@mui/material';
+import { useState } from 'react';
 
 const columns = [
     {
         id: 'nama_kabupaten',
-        label: 'Nama Kabupaten',
-        minWidth: 200
+        label: 'Nama Tempat Ibadah',
+        minWidth: 150
     },
     {
-        id: 'nama_desa',
-        label: 'Nama desa',
-        minWidth: 200
-    },
-    {
-        id: 'nama_desa',
-        label: 'Nama Desa',
-        minWidth: 200
+        id: 'distrik',
+        label: 'Jumlah Jamaat',
+        minWidth: 150
     },
 ];
 
 
-export default function Datadesa() {
-    // const theme = useTheme();
-    // const colors = tokens(theme.palette.mode);
+const JumlahDenominasi = () => {
     const [rows, setRows] = useState(null)
+
+    //Page Number
     let rowNumber = 0;
     const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
-    const [copyList, setCopyList] = useState([]);
+    const [rowsPerPage, setRowsPerPage] = useState(10);
+    //End of Page Number
 
-    const getDatadesa = useCallback(() => {
-        fetch(process.env.REACT_APP_API_URL + "api/desa", {
-            method: 'get',
-            headers: headerData
-        })
-            .then(res => {
-                return res.json()
-            })
-            .then(data => {
-                setRows(data)
-            })
-            .catch(err => {
-                console.log(err)
-            })
-    }, [])
+    const [copyList, setCopyList] = useState([]);
 
     const searchText = (searched) => {
         setCopyList(rows.filter((item) =>
-            item.nama_desa.toUpperCase().includes(searched.toUpperCase())
-        ));
+            item.nama.toUpperCase().includes(searched.toUpperCase())
+        ))
     }
 
+    //Page handle
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
-        getDatadesa();
     };
 
     const handleChangeRowsPerPage = (event) => {
         setRowsPerPage(+event.target.value);
         setPage(0);
     };
-
-    useEffect(() => {
-        if (!rows) {
-            getDatadesa()
-        } else {
-            setCopyList(rows)
-        }
-    },
-        [getDatadesa, rows]
-    )
+    //End of page Handle
 
     return (
         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
@@ -92,32 +62,24 @@ export default function Datadesa() {
                 marginX: 1,
                 marginBottom: 3,
                 marginTop: 2,
-                fontWeight: 700
+                fontWeight: 700,
             }} display={'flex'}>
                 <Typography variant='h2' fontWeight={700} color={'#1E945A'}>
-                    {'Data Desa'}
+                    {'Jumlah Denominasi Gereja'}
                 </Typography>
             </Grid>
-            <Grid container xs={12} m={1} alignItems={'center'} justifyContent={'space-between'}>
+            <Grid container m={1} alignItems={'center'} justifyContent={'space-between'}>
                 <Grid item xs={6} md={5} lg={3}>
                     <TextField
                         id="outlined-textarea"
                         label="Cari"
-                        placeholder="Nama Desa"
-                        multiline
+                        placeholder="Nama atau opd"
                         sx={{
                             width: '100%'
                         }}
                         size='small'
                         onInput={(e) => searchText(e.target.value)}
                     />
-                </Grid>
-                <Grid container item xs={6} md={5} lg={3} paddingRight={'4vw'} sx={{
-                    // backgroundColor: colors.blueAccent[100]
-                }}
-                    justifyContent={'end'}
-                >
-                    <TambahUser execute={getDatadesa} />
                 </Grid>
             </Grid>
             <TableContainer sx={{ maxHeight: '90vh' }}>
@@ -140,13 +102,6 @@ export default function Datadesa() {
                                     {column.label}
                                 </TableCell>
                             ))}
-                            <TableCell
-                                key={'aksi'}
-                                align={'center'}
-                                style={{ minWidth: 10 }}
-                            >
-                                {'Aksi'}
-                            </TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -158,7 +113,7 @@ export default function Datadesa() {
                                     <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
                                         <TableCell
                                             align='center'
-                                            key={row.id}>
+                                            key={'no'}>
                                             {rowNumber + page * rowsPerPage}
                                         </TableCell>
                                         {columns.map((column) => {
@@ -171,16 +126,9 @@ export default function Datadesa() {
                                                 </TableCell>
                                             );
                                         })}
-                                        <TableCell
-                                            align='center'
-                                            key={row.id}>
-                                            <EditDatadesa id={row.id} execute={getDatadesa} />
-                                            <DeleteDatadesa id={row.id} execute={getDatadesa} />
-                                        </TableCell>
                                     </TableRow>
                                 );
-                            })
-                        }
+                            })}
                     </TableBody>
                 </Table>
             </TableContainer>
@@ -194,5 +142,7 @@ export default function Datadesa() {
                 onRowsPerPageChange={handleChangeRowsPerPage}
             />
         </Paper>
-    );
+    )
 }
+
+export default JumlahDenominasi;

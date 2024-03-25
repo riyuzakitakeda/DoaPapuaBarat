@@ -9,7 +9,7 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import TextField from '@mui/material/TextField';
-import { Grid } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 // import { tokens } from '../../../theme';
 import TambahUser from './tambah';
 import { headerData } from '../../../data/headerCostum';
@@ -78,6 +78,17 @@ export default function DataKabupaten() {
 
     return (
         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+            <Grid container sx={{
+                width: '100%',
+                marginX: 1,
+                marginBottom: 3,
+                marginTop: 2,
+                fontWeight: 700
+            }} display={'flex'}>
+                <Typography variant='h2' fontWeight={700}  color={'#1E945A'}>
+                    {'Data Kabupaten'}
+                </Typography>
+            </Grid>
             <Grid container xs={12} m={1} alignItems={'center'} justifyContent={'space-between'}>
                 <Grid item xs={6} md={5} lg={3}>
                     <TextField
