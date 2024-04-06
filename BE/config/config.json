@@ -1,8 +1,8 @@
 {
   "development": {     
-    "username": "root",
-    "password": "",
-    "database": "doa_papua",
+    "username": "doax3147_user",
+    "password": "Makassar@2024",
+    "database": "doax3147_db",
     "host": "localhost",
     "dialect": "mysql",
     "migrationStorage": "sequelize",
@@ -10,9 +10,9 @@
     "migrationsPath": "./migrations"
   },
   "production": {
-    "username": "root",
-    "password": "",
-    "database": "doa_papua",
+    "username": "doax3147_user",
+    "password": "Makassar@2024",
+    "database": "doax3147_db",
     "host": "localhost",
     "dialect": "mysql"
   }
