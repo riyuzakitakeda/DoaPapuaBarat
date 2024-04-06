@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     type: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'User',
+    modelName: 'user',
   });
   
   User.prototype.setPassword = function (password) {

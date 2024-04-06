@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
     alamat: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'DataKelembagaan',
+    modelName: 'datakelembagaan',
   });
   return DataKelembagaan;
 };

@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     nama_distrik: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'DataDistrik',
+    modelName: 'datadistrik',
   });
   return DataDistrik;
 };
