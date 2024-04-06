@@ -27,6 +27,17 @@ exports.findAll = (req, res) => {
     });
 };
 
+exports.findAllByKab = (req, res) => {
+  const { nama_kabupaten } = req.body;
+  Kabupaten.findAll({where: {nama_kabupaten: nama_kabupaten}})
+    .then((Kabupatenes) => {
+      res.status(200).json(Kabupatenes);
+    })
+    .catch((err) => {
+      res.status(500).json({ message: err.message });
+    });
+};
+
 // Retrieve a single Kabupaten by ID
 exports.findOne = (req, res) => {
   const id = req.params.id;

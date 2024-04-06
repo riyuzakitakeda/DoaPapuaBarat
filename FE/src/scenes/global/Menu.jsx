@@ -28,14 +28,7 @@ import { Avatar, Menu, MenuItem, Tooltip, Typography, useMediaQuery } from '@mui
 import { tokens, ColorModeContext } from '../../theme';
 import Logo from '../../assets/image/logo_refleksi.png';
 import PeopleAltRoundedIcon from '@mui/icons-material/PeopleAltRounded';
-import InputRoundedIcon from '@mui/icons-material/InputRounded';
-import SyncAltRoundedIcon from '@mui/icons-material/SyncAltRounded';
 import { useAuth } from '../../auth/auth_provider';
-import qr_code from '../../assets/image/qr_url.png';
-import bg_left from '../../assets/image/background_refleksi.png';
-import logo_tagline from '../../assets/image/logo_tagline.png';
-import logo_makan_enak from '../../assets/image/logo_makan_enak.png';
-import logo_pemkot from '../../assets/image/logoPemkot.png';
 
 
 const drawerWidth = 250;
@@ -175,6 +168,7 @@ const Item = ({ title, to, icon, selected, setSelected, isOpen }) => {
 const SideMenu = (props) => {
     let location = useLocation();
     const { user, logout } = useAuth();
+    const [userType, setUserType] = useState(null);
     // Give us meaningful document titles for popping back/forward more than 1 entry
     const [selected, setSelected] = useState("Dashboard");
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -189,6 +183,9 @@ const SideMenu = (props) => {
     React.useEffect(() => {
         document.title = location.pathname.slice(7);
         setSelected(location.pathname.slice(7));
+        if (userType == null) {
+            setUserType(user.user.type);
+        }
     }, [location, setSelected]);
 
     const { window } = props;
@@ -232,38 +229,80 @@ const SideMenu = (props) => {
                     setSelected={setSelected}
                     isOpen={open}
                 />
-                <Item
-                    title="Data Kabupaten"
-                    to="datakabupaten"
-                    icon={<GridViewRoundedIcon sx={{ fontSize: iconMenuSize }} />}
-                    selected={selected}
-                    setSelected={setSelected}
-                    isOpen={open}
-                />
-                <Item
-                    title="Data Distrik"
-                    to="datadistrik"
-                    icon={<GridViewRoundedIcon sx={{ fontSize: iconMenuSize }} />}
-                    selected={selected}
-                    setSelected={setSelected}
-                    isOpen={open}
-                />
-                <Item
-                    title="Data Desa"
-                    to="datadesa"
-                    icon={<GridViewRoundedIcon sx={{ fontSize: iconMenuSize }} />}
-                    selected={selected}
-                    setSelected={setSelected}
-                    isOpen={open}
-                />
-                <Item
-                    title="Admin Kabupaten"
-                    to="admin"
-                    icon={<GridViewRoundedIcon sx={{ fontSize: iconMenuSize }} />}
-                    selected={selected}
-                    setSelected={setSelected}
-                    isOpen={open}
-                />
+                {
+                    user.user.type === 'admin'
+                        ?
+                        <Item
+                            title="Data Kabupaten"
+                            to="datakabupaten"
+                            icon={<GridViewRoundedIcon sx={{ fontSize: iconMenuSize }} />}
+                            selected={selected}
+                            setSelected={setSelected}
+                            isOpen={open}
+                        />
+                        : <></>
+                }
+                {
+                    user.user.type === 'admin_kabupaten'
+                        ? <Item
+                            title="Data Distrik"
+                            to="datadistrik"
+                            icon={<GridViewRoundedIcon sx={{ fontSize: iconMenuSize }} />}
+                            selected={selected}
+                            setSelected={setSelected}
+                            isOpen={open}
+                        />
+                        : <></>
+                }
+                {
+                    user.user.type === 'admin_distrik'
+                        ?
+                        <Item
+                            title="Data Desa"
+                            to="datadesa"
+                            icon={<GridViewRoundedIcon sx={{ fontSize: iconMenuSize }} />}
+                            selected={selected}
+                            setSelected={setSelected}
+                            isOpen={open}
+                        />
+                        : <></>
+                }
+                {
+                    user.user.type === 'admin'
+                        ? <Item
+                            title="Admin Kabupaten"
+                            to="adminkabupaten"
+                            icon={<GridViewRoundedIcon sx={{ fontSize: iconMenuSize }} />}
+                            selected={selected}
+                            setSelected={setSelected}
+                            isOpen={open}
+                        />
+                        : <></>
+                }
+                {
+                    user.user.type === 'admin_kabupaten'
+                        ? <Item
+                            title="Admin Distrik"
+                            to="admindistrik"
+                            icon={<GridViewRoundedIcon sx={{ fontSize: iconMenuSize }} />}
+                            selected={selected}
+                            setSelected={setSelected}
+                            isOpen={open}
+                        />
+                        : <></>
+                }
+                {/* {
+                    user.user.type === 'admin_distrik'
+                        ? <Item
+                            title="Admin Desa"
+                            to="admindesa"
+                            icon={<GridViewRoundedIcon sx={{ fontSize: iconMenuSize }} />}
+                            selected={selected}
+                            setSelected={setSelected}
+                            isOpen={open}
+                        />
+                        : <></>
+                } */}
                 <Item
                     title="Data Kelembagaan"
                     to="kelembagaan"
@@ -302,7 +341,7 @@ const SideMenu = (props) => {
             <AppBar elevation={1} position="fixed" open={open} >
                 <Toolbar style={{
                     borderBottom: '1px solid #F1D088',
-                    background: `#A4CFC1`,                    
+                    background: `#A4CFC1`,
                     backgroundRepeat: 'no-repeat',
                     backgroundSize: '100%',
                 }}>
@@ -333,6 +372,11 @@ const SideMenu = (props) => {
                                     {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
                                 </IconButton>
                             </Grid>
+                        </Grid>
+                        <Grid>
+                            <Typography>
+                                {user.user.type}
+                            </Typography>
                         </Grid>
                         <Grid item container alignItems={'center'}>
                             <Grid item container py={2}>

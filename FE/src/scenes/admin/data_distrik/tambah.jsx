@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { Button, Modal, useTheme, Typography, Grid, TextField, Divider, Fade } from "@mui/material";
 import { tokens } from "../../../theme";
 import { headerData } from "../../../data/headerCostum";
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
+import { useAuth } from "../../../auth/auth_provider";
 
 
 const TambahDistrik = ({execute}) => {
+    const { user } =  useAuth();
     const [openModal, setOpenModal] = useState(false);
     const [data, setData] = useState({})
     const handleOpenModal = () => setOpenModal(true);
@@ -42,7 +44,6 @@ const TambahDistrik = ({execute}) => {
     ]
 
     const sendData = () => {
-        console.log(data)
         fetch(process.env.REACT_APP_API_URL + "api/distrik", {
             method: 'post',
             headers: headerData,
@@ -57,6 +58,13 @@ const TambahDistrik = ({execute}) => {
                 console.log(err)
             })
     };
+
+    useEffect(() => {
+        if(Object.keys(data).length === 0){
+            // setData({...data, [item.id]: e.target.value})
+            setData({...data, nama_kabupaten: user.user.lokasi})
+        }
+    }, [data, setData])
 
 
 
@@ -118,7 +126,9 @@ const TambahDistrik = ({execute}) => {
                                             label={item.label}
                                             placeholder={item.placeholder}
                                             variant="outlined"
+                                            value={data ? data[item.id] : ''}
                                             size="small"
+                                            disabled={item.disabled}
                                             fullWidth
                                             sx={{
                                                 marginTop: "10px",

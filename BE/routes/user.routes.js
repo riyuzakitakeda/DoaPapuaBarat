@@ -34,6 +34,10 @@ router.post("/upload/:id", upload.single("image"), UserController.uploadimage);
 router.post("/", UserController.create);
 // Retrieve all users
 router.get("/", UserController.findAll);
+router.get("/adminkabupaten", UserController.findAllAdminKabupaten);
+router.get("/admindistrik", UserController.findAllAdminDistrik);
+router.get("/admindesa", UserController.findAllAdminDesa);
+
 // Retrieve a single user by ID
 router.get("/:id", UserController.findOne);
 // Update a user by ID

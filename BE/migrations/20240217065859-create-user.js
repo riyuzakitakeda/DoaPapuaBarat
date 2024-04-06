@@ -12,7 +12,7 @@ module.exports = {
       nama: {
         type: Sequelize.STRING
       },
-      kabupaten: {
+      lokasi: {
         type: Sequelize.STRING
       },
       username: {

@@ -20,6 +20,8 @@ import Datadesa from './scenes/admin/data_desa';
 import Home from './scenes/home/home';
 import JumlahDenominasi from './scenes/admin/jumlah_denominasi';
 import RekapanData from './scenes/admin/rekapan_data';
+import DaftarAdminKabupaten from './scenes/admin/admin_kabupaten';
+import DaftarAdminDistrik from './scenes/admin/admin_distrik';
 
 
 
@@ -41,6 +43,8 @@ const App = () => {
             <Route path="datadistrik" element={<DataDistrik />} />
             <Route path="datadesa" element={<Datadesa />} />
             <Route path="admin" element={<DaftarAdmin />} />
+            <Route path="adminkabupaten" element={<DaftarAdminKabupaten />} />
+            <Route path="admindistrik" element={<DaftarAdminDistrik />} />
             <Route path="kelembagaan" element={<Kelembagaan />} />
             <Route path="dedominasi" element={<JumlahDenominasi />} />
             <Route path="rekapandata" element={<RekapanData />} />

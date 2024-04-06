@@ -1,14 +1,21 @@
-import React from "react";
+import React, { useCallback, useEffect } from "react";
 import { useState } from "react";
 import { Button, Modal, useTheme, Typography, Grid, TextField, Divider, Fade } from "@mui/material";
 import { tokens } from "../../../theme";
 import { headerData } from "../../../data/headerCostum";
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
+import { useAuth } from "../../../auth/auth_provider";
 
 
 const TambahDesa = ({execute}) => {
+    const { user } = useAuth();
     const [openModal, setOpenModal] = useState(false);
-    const [data, setData] = useState({})
+    const [data, setData] = useState({
+        nama_kabupaten: '',
+        nama_distrik: '',
+        nama_desa: ''
+    });
+    const [namaKabupaten, setNamaKabupaten] = useState(null);
     const handleOpenModal = () => setOpenModal(true);
     const handleCloseModal = () => setOpenModal(false);
     const theme = useTheme();
@@ -30,7 +37,7 @@ const TambahDesa = ({execute}) => {
         {
             id: "nama_kabupaten",
             label: "Nama Kabupaten",
-            placeholder: "Silahkan Masukkan Nama Kabupaten",
+            placeholder: "Silahkan Masukkan Nama kabupaten",
             disabled: true
         },
         {
@@ -46,6 +53,24 @@ const TambahDesa = ({execute}) => {
             disabled: false
         },
     ]
+
+    const getDataKabupaten = useCallback(() => {
+        fetch(process.env.REACT_APP_API_URL+"api/distrik/filter/"+user.user.lokasi, {
+            method: 'get',
+            headers: headerData
+        })
+            .then(res => {
+                return res.json()
+            })
+            .then(result => {
+                // setNamaKabupaten(result.nama_kabupaten);
+                console.log(result.nama_kabupaten);
+                setData({...data, nama_kabupaten: result.nama_kabupaten, nama_distrik: user.user.lokasi})
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }, [data, setData])
 
     const sendData = () => {
         console.log(data)
@@ -63,6 +88,12 @@ const TambahDesa = ({execute}) => {
                 console.log(err)
             })
     };
+
+    useEffect(() => {
+        if(data.nama_kabupaten.length === 0){
+            getDataKabupaten();
+        }
+    }, [data, setData, getDataKabupaten])
 
 
 
@@ -93,7 +124,7 @@ const TambahDesa = ({execute}) => {
                 aria-describedby="modal-modal-description"
             >
                 <Fade in={openModal}>
-                    <Grid container xs={11} md={7} lg={5} sx={style}>
+                    <Grid container item xs={11} md={7} lg={5} sx={style}>
                         <Grid item container justifyContent={"space-between"} alignItems={"end"}>
                             <Typography variant="h4">
                                 Tambah Desa
@@ -121,10 +152,13 @@ const TambahDesa = ({execute}) => {
                                     field.map((item) => (
                                         <TextField
                                             id={item.id}
+                                            key={item.id}
                                             label={item.label}
                                             placeholder={item.placeholder}
                                             variant="outlined"
                                             size="small"
+                                            value={data ? data[item.id] : ''}
+                                            disabled={item.disabled}
                                             fullWidth
                                             sx={{
                                                 marginTop: "10px",

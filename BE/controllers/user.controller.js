@@ -31,7 +31,7 @@ exports.create = async (req, res) => {
     username,
     password,
     nama,
-    kabupaten,
+    lokasi,
     type
   } = req.body;
 
@@ -43,7 +43,7 @@ exports.create = async (req, res) => {
       User.create({
         username,
         nama,
-        kabupaten,
+        lokasi,
         type
       })
         .then((user) => {
@@ -75,6 +75,46 @@ exports.findAll = (req, res) => {
     });
 };
 
+exports.findAllAdminKabupaten = (req, res) => {
+  User.findAll({where: {type: 'admin_kabupaten'}})
+    .then((data) => {
+      res.status(200).json(data);
+    })
+    .catch((err) => {
+      res.status(500).json({ message: err.message });
+    });
+};
+
+exports.findAllAdminDistrik = (req, res) => {
+  User.findAll({where: {type: 'admin_distrik'}})
+    .then((data) => {
+      res.status(200).json(data);
+    })
+    .catch((err) => {
+      res.status(500).json({ message: err.message });
+    });
+};
+
+exports.findAllAdminDistrikByKab = (req, res) => {
+  User.findAll({where: {type: 'admin_distrik'}})
+    .then((data) => {
+      res.status(200).json(data);
+    })
+    .catch((err) => {
+      res.status(500).json({ message: err.message });
+    });
+};
+
+exports.findAllAdminDesa = (req, res) => {
+  User.findAll({where: {type: 'admin_desa'}})
+    .then((data) => {
+      res.status(200).json(data);
+    })
+    .catch((err) => {
+      res.status(500).json({ message: err.message });
+    });
+};
+
 // Retrieve a single user by ID
 exports.findOne = (req, res) => {
   const id = req.params.id;
@@ -98,7 +138,7 @@ exports.update = async (req, res) => {
     username,
     password,
     nama,
-    kabupaten,
+    lokasi,
     type
   } = req.body;
   try {
@@ -115,7 +155,7 @@ exports.update = async (req, res) => {
 
           user.username = username;
           user.nama = nama;
-          user.kabupaten = kabupaten;
+          user.lokasi = lokasi;
           if (password != "") {
             user.setPassword(password);
           }

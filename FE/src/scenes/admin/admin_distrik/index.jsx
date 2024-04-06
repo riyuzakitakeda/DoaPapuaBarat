@@ -10,41 +10,50 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import TextField from '@mui/material/TextField';
 import { Grid, Typography } from '@mui/material';
-import TambahUser from './tambah';
+// import { tokens } from '../../../theme';
+import TambahData from './tambah';
+import EditDataUser from './edit';
+import DeleteUser from './delete';
 import { headerData } from '../../../data/headerCostum';
-import EditDatadesa from './edit';
-import DeleteDatadesa from './delete';
+import { useAuth } from '../../../auth/auth_provider';
 
 const columns = [
     {
-        id: 'nama_kabupaten',
-        label: 'Nama Kabupaten',
+        id: 'nama',
+        label: 'Nama',
         minWidth: 200
     },
     {
-        id: 'nama_distrik',
-        label: 'Nama Distrik',
+        id: 'username',
+        label: 'Usernamae',
         minWidth: 200
     },
     {
-        id: 'nama_desa',
-        label: 'Nama Desa',
+        id: 'lokasi',
+        label: 'Distrik',
         minWidth: 200
+    },
+    {
+        id: 'type',
+        label: 'Type',
+        minWidth: 170,
     },
 ];
 
 
-export default function Datadesa() {
+export default function DaftarAdminDistrik() {
     // const theme = useTheme();
     // const colors = tokens(theme.palette.mode);
-    const [rows, setRows] = useState(null)
+    const [rows, setRows] = useState([])
+    const { user } = useAuth();
+
     let rowNumber = 0;
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
-    const [copyList, setCopyList] = useState([]);
+    const [copyList, setCopyList] = useState(rows);
 
-    const getDatadesa = useCallback(() => {
-        fetch(process.env.REACT_APP_API_URL + "api/desa", {
+    const getDataUser = useCallback(() => {
+        fetch(process.env.REACT_APP_API_URL+"api/user/admindistrik", {
             method: 'get',
             headers: headerData
         })
@@ -61,13 +70,14 @@ export default function Datadesa() {
 
     const searchText = (searched) => {
         setCopyList(rows.filter((item) =>
-            item.nama_desa.toUpperCase().includes(searched.toUpperCase())
+            (searched)
+                ? item.opd.toUpperCase().includes(searched.toUpperCase())
+                : item.username.toUpperCase().includes(searched.toUpperCase())
         ));
     }
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
-        getDatadesa();
     };
 
     const handleChangeRowsPerPage = (event) => {
@@ -76,13 +86,14 @@ export default function Datadesa() {
     };
 
     useEffect(() => {
-        if (!rows) {
-            getDatadesa()
-        } else {
+        if(rows.length === 0){
+            getDataUser()
+        }else{
             setCopyList(rows)
+            console.log(rows)
         }
     },
-        [getDatadesa, rows]
+        [getDataUser, rows]
     )
 
     return (
@@ -95,15 +106,15 @@ export default function Datadesa() {
                 fontWeight: 700
             }} display={'flex'}>
                 <Typography variant='h2' fontWeight={700} color={'#1E945A'}>
-                    {'Data Desa'}
+                    {'Data Admin Distrik'}
                 </Typography>
             </Grid>
-            <Grid container item xs={12} m={1} alignItems={'center'} justifyContent={'space-between'}>
+            <Grid container xs={12} m={1} alignItems={'center'} justifyContent={'space-between'}>
                 <Grid item xs={6} md={5} lg={3}>
                     <TextField
                         id="outlined-textarea"
                         label="Cari"
-                        placeholder="Nama Desa"
+                        placeholder="NIK atau Nama"
                         multiline
                         sx={{
                             width: '100%'
@@ -116,14 +127,15 @@ export default function Datadesa() {
                     // backgroundColor: colors.blueAccent[100]
                 }}
                     justifyContent={'end'}
-                >
-                    <TambahUser execute={getDatadesa} />
+                >   
+                    
+                    <TambahData execute={getDataUser}  />
                 </Grid>
             </Grid>
             <TableContainer sx={{ maxHeight: '90vh' }}>
                 <Table size='small' stickyHeader aria-label="sticky table">
                     <TableHead>
-                        <TableRow key={"rowhead"}>
+                        <TableRow>
                             <TableCell
                                 key={'no'}
                                 align={'center'}
@@ -131,13 +143,13 @@ export default function Datadesa() {
                             >
                                 {'No'}
                             </TableCell>
-                            {columns.map((item) => (
+                            {columns.map((column) => (
                                 <TableCell
-                                    key={item.id+"column"}
-                                    align={item.align}
-                                    style={{ minWidth: item.minWidth }}
+                                    key={column.id}
+                                    align={column.align}
+                                    style={{ minWidth: column.minWidth }}
                                 >
-                                    {item.label}
+                                    {column.label}
                                 </TableCell>
                             ))}
                             <TableCell
@@ -158,13 +170,13 @@ export default function Datadesa() {
                                     <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
                                         <TableCell
                                             align='center'
-                                            key={row.id+"num"}>
+                                            key={'no'}>
                                             {rowNumber + page * rowsPerPage}
                                         </TableCell>
                                         {columns.map((column) => {
                                             const value = row[column.id];
                                             return (
-                                                <TableCell key={row.id+"_"+column.id} align={column.align}>
+                                                <TableCell key={column.id} align={column.align}>
                                                     {column.format && typeof value === 'number'
                                                         ? column.format(value)
                                                         : value}
@@ -173,14 +185,13 @@ export default function Datadesa() {
                                         })}
                                         <TableCell
                                             align='center'
-                                            key={row.id+"aksi"}>
-                                            <EditDatadesa id={row.id} execute={getDatadesa} />
-                                            <DeleteDatadesa id={row.id} execute={getDatadesa} />
+                                            key={'aksi'}>
+                                            <EditDataUser id={row.id} execute={getDataUser} />
+                                            <DeleteUser id={row.id} execute={getDataUser} />
                                         </TableCell>
                                     </TableRow>
                                 );
-                            })
-                        }
+                            })}
                     </TableBody>
                 </Table>
             </TableContainer>

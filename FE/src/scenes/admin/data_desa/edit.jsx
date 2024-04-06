@@ -68,19 +68,22 @@ const EditDataDesa = ({ id, execute }) => {
             id: "nama_kabupaten",
             label: "Nama Kabupaten",
             placeholder: "Silahkan Masukkan Nama Kabupaten",
-            type: "text"
+            type: "text",
+            ind: "index_kabupaten"
         },
         {
             id: "nama_distrik",
             label: "Nama Distrik",
             placeholder: "Silahkan Masukkan Nama Distrik",
-            type: "text"
+            type: "text",
+            ind: "index_distrik"
         },
         {
             id: "nama_desa",
             label: "Nama Desa",
             placeholder: "Silahkan Masukkan Nama Desa",
-            type: "text"
+            type: "text",
+            ind: "index_desa"
         },
     ]
 
@@ -114,7 +117,7 @@ const EditDataDesa = ({ id, execute }) => {
                 aria-describedby="modal-modal-description"
             >
                 <Fade in={openModal}>
-                    <Grid container xs={11} md={7} lg={5} sx={style}>
+                    <Grid container item xs={11} md={7} lg={5} sx={style}>
                         <Grid item container justifyContent={"space-between"} alignItems={"end"}>
                             <Typography variant="h4">
                                 Edit Data Desa
@@ -145,6 +148,7 @@ const EditDataDesa = ({ id, execute }) => {
                                     field.map((item) => (
                                         <TextField
                                             id={item.id}
+                                            key={item.ind}
                                             label={item.label}
                                             placeholder={item.placeholder}
                                             variant="outlined"

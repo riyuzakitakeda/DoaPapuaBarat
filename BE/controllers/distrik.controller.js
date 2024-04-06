@@ -31,6 +31,36 @@ exports.findAll = (req, res) => {
     });
 };
 
+exports.findKab = (req, res) => {
+  const nama_distrik = req.params.distrik;
+  Distrik.findOne({where: {nama_distrik: nama_distrik}})
+    .then((Distrik) => {
+      if (!Distrik) {
+        res.status(404).json({ message: "Distrik not found" });
+        return;
+      }
+      res.status(200).json(Distrik);
+    })
+    .catch((err) => {
+      res.status(500).json({ message: err.message });
+    });
+};
+
+exports.findAllByKab = (req, res) => {
+  const nama_kabupaten = req.params.kabupaten;
+  Distrik.findAll({where: {nama_kabupaten: nama_kabupaten}})
+    .then((Distrik) => {
+      if (!Distrik) {
+        res.status(404).json({ message: "Distrik not found" });
+        return;
+      }
+      res.status(200).json(Distrik);
+    })
+    .catch((err) => {
+      res.status(500).json({ message: err.message });
+    });
+};
+
 // Retrieve a single Distrik by ID
 exports.findOne = (req, res) => {
   const id = req.params.id;

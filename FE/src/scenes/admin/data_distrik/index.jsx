@@ -14,6 +14,7 @@ import TambahUser from './tambah';
 import { headerData } from '../../../data/headerCostum';
 import EditDataDistrik from './edit';
 import DeleteDataDistrik from './delete';
+import { useAuth } from '../../../auth/auth_provider';
 
 const columns = [
     {
@@ -32,6 +33,7 @@ const columns = [
 export default function DataDistrik() {
     // const theme = useTheme();
     // const colors = tokens(theme.palette.mode);
+    const { user } = useAuth();
     const [rows, setRows] = useState(null)
     let rowNumber = 0;
     const [page, setPage] = useState(0);
@@ -39,7 +41,7 @@ export default function DataDistrik() {
     const [copyList, setCopyList] = useState([]);
 
     const getDataDistrik = useCallback(() => {
-        fetch(process.env.REACT_APP_API_URL+"api/distrik", {
+        fetch(process.env.REACT_APP_API_URL+"api/distrik/filterkab/"+user.user.lokasi, {
             method: 'get',
             headers: headerData
         })
