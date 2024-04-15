@@ -9,11 +9,11 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
 
-const DeleteAnak = ({ id, execute }) => {
+const DeleteKelembagaan = ({ id, execute }) => {
     const [open, setOpenDialog] = useState(false);
     const handleOpenDialog = () => setOpenDialog(true);
     const handleCloseDialog = () => setOpenDialog(false);
-    const handleConfirmation = () => deleteDataAnak(id);
+    const handleConfirmation = () => deleteDataKelembagaan(id);
 
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
@@ -29,8 +29,8 @@ const DeleteAnak = ({ id, execute }) => {
         borderRadius: 2
     };
 
-    const deleteDataAnak = useCallback((keyid) => {
-        fetch(process.env.REACT_APP_API_URL + "api/anak/" + keyid, {
+    const deleteDataKelembagaan = useCallback((keyid) => {
+        fetch(process.env.REACT_APP_API_URL + "api/kelembagaan/" + keyid, {
             method: 'delete',
             headers: headerData
         })
@@ -90,4 +90,4 @@ const DeleteAnak = ({ id, execute }) => {
     );
 }
 
-export default DeleteAnak;
+export default DeleteKelembagaan;

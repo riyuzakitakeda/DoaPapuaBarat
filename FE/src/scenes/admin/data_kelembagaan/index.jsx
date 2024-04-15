@@ -35,12 +35,12 @@ const columns = [
     },
     {
         id: 'distrik',
-        label: 'Distrik',
+        label: 'Nama Distrik',
         minWidth: 150
     },
     {
         id: 'desa',
-        label: 'Desa',
+        label: 'Nama Kampung',
         minWidth: 150
     },
     {
@@ -72,7 +72,7 @@ export default function Kelembagaan() {
     const [opdData, setKabupatenData] = useState([]);
     //End of Filter
 
-    const getDataPendaftar = useCallback(() => {
+    const getDataKelembagaan = useCallback(() => {
         fetch(process.env.REACT_APP_API_URL + "api/kelembagaan", {
             method: 'get',
             headers: headerData
@@ -135,13 +135,13 @@ export default function Kelembagaan() {
 
     useEffect(() => {
         if (!rows) {
-            getDataPendaftar()
+            getDataKelembagaan()
         } else {
             setCopyList(rows)
             getKabupatenData()
         }
     },
-        [getDataPendaftar, rows, getKabupatenData]
+        [getDataKelembagaan, rows, getKabupatenData]
     )
 
     return (
@@ -176,15 +176,15 @@ export default function Kelembagaan() {
                     justifyContent={'end'}
                 >   
                     <Box sx={{ marginX: 0.5 }}>
-                        <ImportData columns={columns} rows={copyList} filename={'data_pendaftar.csv'} />
+                        <ImportData columns={columns} rows={copyList} filename={'data_Kelembagaan.csv'} />
                     </Box>
                     <Box sx={{ marginX: 0.5 }} >
-                        <TambahAnak execute={getDataPendaftar} />
+                        <TambahAnak execute={getDataKelembagaan} />
                     </Box>
                 </Grid>
             </Grid>
             <Grid container xs={12} m={1} alignItems={'center'}>
-                <Grid item xs={6} md={4} lg={3}>
+                {/* <Grid item xs={6} md={4} lg={3}>
                     <FormControl fullWidth>
                         <InputLabel size='small' id="opd-select-label">Kabupaten</InputLabel>
                         <Select
@@ -224,12 +224,12 @@ export default function Kelembagaan() {
                 </Grid>
                 <Grid item xs={6} md={4} lg={3}>
                     <FormControl fullWidth>
-                        <InputLabel size='small' id="opd-select-label">Desa</InputLabel>
+                        <InputLabel size='small' id="opd-select-label">Kampung</InputLabel>
                         <Select
                             labelId="opd-select-label"
                             id="opd-select"
                             value={opdValue}
-                            label="Kabupaten"
+                            label="Kampung"
                             onChange={(e) => opdHandle(e.target.value)}
                             size='small'
                         >
@@ -240,7 +240,7 @@ export default function Kelembagaan() {
                             }
                         </Select>
                     </FormControl>
-                </Grid>
+                </Grid> */}
             </Grid>
             <TableContainer sx={{ maxHeight: '90vh' }}>
                 <Table size='small' stickyHeader aria-label="sticky table">
@@ -298,8 +298,8 @@ export default function Kelembagaan() {
                                             key={'aksi'}
                                         >
                                             <Grid container item>
-                                                <EditDataAnak id={row.id} execute={getDataPendaftar} />
-                                                <DeleteAnak id={row.id} execute={getDataPendaftar} />
+                                                <EditDataAnak id={row.id} execute={getDataKelembagaan} />
+                                                <DeleteAnak id={row.id} execute={getDataKelembagaan} />
                                             </Grid>
                                         </TableCell>
                                     </TableRow>

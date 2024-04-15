@@ -1,8 +1,94 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Grid, Paper, Typography } from '@mui/material';
 import  dashboard_image  from '../../assets/image/dashboard_image.png';
+import { headerData } from '../../data/headerCostum';
 
 const Dashboard = () => {
+    const [datakabupaten, setDataKabupaten] = useState(null);
+    const [dataDistrik, setDataDistrik] = useState(null);
+    const [dataKampung, setDataKampung] = useState(null)
+    const [rows, setRows] = useState(null)
+    
+    const getDataKabupaten = useCallback(() => {
+        fetch(process.env.REACT_APP_API_URL + "api/kabupaten", {
+            method: 'get',
+            headers: headerData
+        })
+            .then(res => {
+                return res.json()
+            })
+            .then(data => {
+                setDataKabupaten(data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }, [])
+
+    const getDataDistrik = useCallback(() => {
+        fetch(process.env.REACT_APP_API_URL + "api/distrik", {
+            method: 'get',
+            headers: headerData
+        })
+            .then(res => {
+                return res.json()
+            })
+            .then(data => {
+                setDataDistrik(data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }, [])
+
+    const getDataKampung = useCallback(() => {
+        fetch(process.env.REACT_APP_API_URL + "api/desa", {
+            method: 'get',
+            headers: headerData
+        })
+            .then(res => {
+                return res.json()
+            })
+            .then(data => {
+                setDataKampung(data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }, [])
+
+    const getDataKelembagaan = useCallback(() => {
+        fetch(process.env.REACT_APP_API_URL + "api/kelembagaan", {
+            method: 'get',
+            headers: headerData
+        })
+            .then(res => {
+                return res.json()
+            })
+            .then(data => {
+                console.log(data)
+                setRows(data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }, [])
+
+    useEffect(() => {
+        if(!rows){
+            getDataKelembagaan();
+        }
+        if (!datakabupaten) {
+            getDataKabupaten();
+        }
+        if(!dataDistrik){
+            getDataDistrik();
+        }
+        if(!dataKampung){
+            getDataKampung();
+        }
+    }, [datakabupaten, getDataKabupaten])
+
     return (
         <Grid container spacing={2}>
             <Grid container sx={{
@@ -26,7 +112,7 @@ const Dashboard = () => {
                         Total Kabupaten
                     </Typography>
                     <Typography variant="h1" fontSize={50} fontWeight={700} style={{ color: 'white' }}>
-                        12
+                        {datakabupaten ? datakabupaten.length : 0}
                     </Typography>
                 </Paper>
                 <Paper style={{
@@ -35,10 +121,10 @@ const Dashboard = () => {
                     marginTop: '16px'
                 }}>
                     <Typography variant="h6" style={{ color: 'black' }}>
-                        Total Desa
+                        Total Kampung
                     </Typography>
                     <Typography variant="h4" fontWeight={700} style={{ color: 'black' }}>
-                        200
+                        {dataKampung ? dataKampung.length : 0}
                     </Typography>
                 </Paper>
                 <Paper style={{ backgroundColor: '#FFFFFF', padding: '16px', marginTop: '16px' }}>
@@ -46,7 +132,7 @@ const Dashboard = () => {
                         Total Tempat Ibadah
                     </Typography>
                     <Typography variant="h4" fontWeight={700} style={{ color: 'black' }}>
-                        1000
+                        {rows ? rows.length : 0}
                     </Typography>
                 </Paper>
                 <Paper style={{ backgroundColor: '#FFFFFF', padding: '16px', marginTop: '16px' }}>
@@ -54,7 +140,7 @@ const Dashboard = () => {
                         Total Ketua Terdaftar
                     </Typography>
                     <Typography variant="h4" fontWeight={700} style={{ color: 'black' }}>
-                        2500
+                        {rows ? rows.length : 0}
                     </Typography>
                 </Paper>
             </Grid>
@@ -68,7 +154,7 @@ const Dashboard = () => {
                         Total Distrik
                     </Typography>
                     <Typography variant="h1" fontSize={50} fontWeight={700} style={{ color: 'white' }}>
-                        12
+                        {dataDistrik ? dataDistrik.length : 0}
                     </Typography>
                 </Paper>
                 {/* Insert your image here */}

@@ -27,7 +27,8 @@ module.exports = (sequelize, DataTypes) => {
     jumlah_pns: DataTypes.INTEGER,
     jumlah_petani_nelayan: DataTypes.INTEGER,
     jumlah_swasta: DataTypes.INTEGER,
-    alamat: DataTypes.STRING
+    alamat: DataTypes.STRING,
+    foto: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'datakelembagaan',

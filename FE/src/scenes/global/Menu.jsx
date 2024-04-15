@@ -303,7 +303,9 @@ const SideMenu = (props) => {
                         />
                         : <></>
                 } */}
-                <Item
+                {
+                user.user.type === 'admin_distrik' || user.user.type === 'admin'
+                ? <><Item
                     title="Data Kelembagaan"
                     to="kelembagaan"
                     icon={<PeopleAltRoundedIcon sx={{ fontSize: iconMenuSize }} />}
@@ -327,6 +329,8 @@ const SideMenu = (props) => {
                     setSelected={setSelected}
                     isOpen={open}
                 />
+                </>
+                : <></>}
             </List>
             <Divider />
         </Box>
