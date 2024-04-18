@@ -95,7 +95,7 @@ export default function Datadesa() {
                 fontWeight: 700
             }} display={'flex'}>
                 <Typography variant='h2' fontWeight={700} color={'#1E945A'}>
-                    {'Data Desa'}
+                    {'Data Kampung'}
                 </Typography>
             </Grid>
             <Grid container item xs={12} m={1} alignItems={'center'} justifyContent={'space-between'}>

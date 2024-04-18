@@ -258,7 +258,7 @@ const SideMenu = (props) => {
                     user.user.type === 'admin_distrik'
                         ?
                         <Item
-                            title="Data Desa"
+                            title="Data Kampung"
                             to="datadesa"
                             icon={<GridViewRoundedIcon sx={{ fontSize: iconMenuSize }} />}
                             selected={selected}

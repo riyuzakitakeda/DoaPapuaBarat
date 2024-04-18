@@ -27,9 +27,6 @@ const TambahAnak = ({ execute }) => {
     const [dataDistrik, setDataDistrik] = useState(null);
     const [dataKampung, setDataKampung] = useState(null)
     
-    const [kabupatenValue, setKabupatenValue] = useState('');
-    const [distrikValue, setDistrikValue] = useState('');
-    const [kampungValue, setKampungValue] = useState('');
 
     const style = {
         position: 'absolute',
