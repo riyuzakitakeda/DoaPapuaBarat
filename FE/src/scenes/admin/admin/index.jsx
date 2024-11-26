@@ -16,6 +16,7 @@ import EditDataUser from './edit';
 import DeleteUser from './delete';
 import { headerData } from '../../../data/headerCostum';
 import { useAuth } from '../../../auth/auth_provider';
+import { shortData } from '../../global/sortData';
 
 const columns = [
     {
@@ -61,7 +62,7 @@ export default function DaftarAdmin() {
                 return res.json()
             })
             .then(data => {
-                setRows(data)
+                setRows(shortData(data));
             })
             .catch(err => {
                 console.log(err)
@@ -69,7 +70,8 @@ export default function DaftarAdmin() {
     }, [])
 
     const searchText = (searched) => {
-        setCopyList(rows.filter((item) =>
+        const shorted_rows = shortData(rows)
+        setCopyList(shorted_rows.filter((item) =>
             (searched)
                 ? item.opd.toUpperCase().includes(searched.toUpperCase())
                 : item.username.toUpperCase().includes(searched.toUpperCase())
@@ -89,7 +91,7 @@ export default function DaftarAdmin() {
         if(rows.length === 0){
             getDataUser()
         }else{
-            setCopyList(rows)
+            setCopyList(shortData(rows))
         }
     },
         [getDataUser, rows]

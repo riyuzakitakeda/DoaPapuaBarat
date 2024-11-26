@@ -15,6 +15,7 @@ import { headerData } from '../../../data/headerCostum';
 import EditDataDistrik from './edit';
 import DeleteDataDistrik from './delete';
 import { useAuth } from '../../../auth/auth_provider';
+import { shortData } from '../../global/sortData';
 
 const columns = [
     {
@@ -49,7 +50,7 @@ export default function DataDistrik() {
                 return res.json()
             })
             .then(data => {
-                setRows(data)
+                setRows(shortData(data))
             })
             .catch(err => {
                 console.log(err)

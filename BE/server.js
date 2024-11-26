@@ -6,7 +6,7 @@ const DesaRoutes = require("./routes/desa.routes");
 const KelembagaanRoutes = require("./routes/kelembagaan.routes");
 const UserRoute = require("./routes/user.routes");
 const cors = require("cors");
-const jwt = require("jsonwebtoken");
+// const jwt = require("jsonwebtoken");
 const app = express();
 
 var corsOptions = {
@@ -26,8 +26,8 @@ app.use(
 // Middleware to parse Basic Authentication credentials
 const authenticate = (req, res, next) => {
   const user = basicAuth(req);
-  const username = "developer"; // Replace with your desired username
-  const password = "Rezky@2023"; // Replace with your desired password
+  const username = 'developer'; // Replace with your desired username
+  const password = 'Rezky@2023'; // Replace with your desired password
 
   if (!user || user.name !== username || user.pass !== password) {
     res.set("WWW-Authenticate", "Basic realm=Authorization Required");

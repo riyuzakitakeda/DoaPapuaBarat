@@ -36,7 +36,7 @@ const EditdataUser = ({ id, execute }) => {
     const [userType, setuserType] = useState('');
 
     const getDataUser = useCallback(() => {
-        fetch(process.env.REACT_APP_API_URL + "api/user/" + id, {
+        fetch(process.env.REACT_APP_API_URL + "api/adminkabupaten/" + id, {
             method: 'get',
             headers: headerData
         })
@@ -129,7 +129,7 @@ const EditdataUser = ({ id, execute }) => {
     }, [dataUser, setdataUser]);
 
     useEffect(() => {
-        if (dataUser.length === 0) {
+        if (dataUser.length == 0) {
             getDataUser()
         }
     }, [getDataUser, dataUser, setdataUser])

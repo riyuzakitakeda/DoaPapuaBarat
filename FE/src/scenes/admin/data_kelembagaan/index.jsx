@@ -26,6 +26,7 @@ import DownloadTable from './download';
 
 import { headerData } from '../../../data/headerCostum';
 import ImportData from './importdata';
+import { shortData } from '../../global/sortData';
 
 const columns = [
     {
@@ -52,6 +53,14 @@ const columns = [
         id: 'nama_ketua',
         label: 'Nama Ketua',
         minWidth: 150
+    },
+    {
+        id: 'createdAt',
+        label: 'Tanggal Inputan',
+        minWidth: 150,
+        format: (value) => {
+            return value.substring(0,10);
+        }
     },
 ];
 
@@ -82,7 +91,7 @@ export default function Kelembagaan() {
             })
             .then(data => {
                 // console.log(data)
-                setRows(data)
+                setRows(shortData(data))
             })
             .catch(err => {
                 console.log(err)
@@ -137,7 +146,7 @@ export default function Kelembagaan() {
         if (!rows) {
             getDataKelembagaan()
         } else {
-            setCopyList(rows)
+            setCopyList(shortData(rows))
             getKabupatenData()
         }
     },
@@ -176,7 +185,7 @@ export default function Kelembagaan() {
                     justifyContent={'end'}
                 >   
                     <Box sx={{ marginX: 0.5 }}>
-                        <ImportData columns={columns} rows={copyList} filename={'data_Kelembagaan.csv'} />
+                        <ImportData execute={getDataKelembagaan}/>
                     </Box>
                     <Box sx={{ marginX: 0.5 }} >
                         <TambahAnak execute={getDataKelembagaan} />
@@ -287,7 +296,7 @@ export default function Kelembagaan() {
                                             const value = row[column.id];
                                             return (
                                                 <TableCell key={column.id} align={column.align}>
-                                                    {column.format && typeof value === 'number'
+                                                    {column.format
                                                         ? column.format(value)
                                                         : value}
                                                 </TableCell>

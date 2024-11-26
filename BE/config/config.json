@@ -1,8 +1,8 @@
 {
   "development": {     
-    "username": "doax3147_user",
-    "password": "Makassar@2024",
-    "database": "doax3147_db",
+    "username": "root",
+    "password": "",
+    "database": "doa_papua",
     "host": "localhost",
     "dialect": "mysql",
     "migrationStorage": "sequelize",

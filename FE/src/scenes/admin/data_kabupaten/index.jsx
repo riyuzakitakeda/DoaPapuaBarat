@@ -15,6 +15,7 @@ import TambahUser from './tambah';
 import { headerData } from '../../../data/headerCostum';
 import EditdataKabupaten from './edit';
 import DeleteDataKabupaten from './delete';
+import { shortData } from '../../global/sortData';
 
 const columns = [
     {
@@ -43,7 +44,7 @@ export default function DataKabupaten() {
                 return res.json()
             })
             .then(data => {
-                setRows(data)
+                setRows(shortData(data))
             })
             .catch(err => {
                 console.log(err)
@@ -70,7 +71,7 @@ export default function DataKabupaten() {
         if(!rows){
             getDataKabupaten()
         }else{
-            setCopyList(rows)
+            setCopyList(shortData(rows))
         }
     },
         [getDataKabupaten, rows]

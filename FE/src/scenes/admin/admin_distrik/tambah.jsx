@@ -225,7 +225,7 @@ const TambahData = ({ execute }) => {
                                             borderColor: colors.greenAccent[400]
                                         }
                                     }}
-                                    onInput={(e) => setDataUser({ ...dataUser, username: e.target.value })}
+                                    onInput={(e) => setDataUser({ ...dataUser, username: e.target.value.replace(/\s/g, '') })}
                                 />
                                 <TextField
                                     id={'password'}

@@ -14,6 +14,7 @@ import TambahUser from './tambah';
 import { headerData } from '../../../data/headerCostum';
 import EditDatadesa from './edit';
 import DeleteDatadesa from './delete';
+import { shortData } from '../../global/sortData';
 
 const columns = [
     {
@@ -52,7 +53,7 @@ export default function Datadesa() {
                 return res.json()
             })
             .then(data => {
-                setRows(data)
+                setRows(shortData(data))
             })
             .catch(err => {
                 console.log(err)

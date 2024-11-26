@@ -13,6 +13,26 @@ exports.create = (req, res) => {
     });
 };
 
+exports.bulkCreate = (req, res) => {
+  const data = req.body; // Expecting an array of objects
+  console.log(data.all)
+
+  if (!Array.isArray(data.all) || data.length === 0) {
+    return res.status(400).json({ message: "Invalid data format or empty payload." });
+  }
+
+  Kelembagaan.bulkCreate(data.all, { validate: true })
+    .then((createdRecords) => {
+      res.status(201).json({
+        message: `${createdRecords.length} records successfully imported.`,
+        data: createdRecords,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({ message: err.message });
+    });
+};
+
 // Retrieve all Kelembagaanes
 exports.findAll = (req, res) => {
   Kelembagaan.findAll()

@@ -16,6 +16,7 @@ import EditDataUser from './edit';
 import DeleteUser from './delete';
 import { headerData } from '../../../data/headerCostum';
 import { useAuth } from '../../../auth/auth_provider';
+import { shortData } from '../../global/sortData';
 
 const columns = [
     {
@@ -61,7 +62,7 @@ export default function DaftarAdminKabupaten() {
                 return res.json()
             })
             .then(data => {
-                setRows(data)
+                setRows(shortData(data))
             })
             .catch(err => {
                 console.log(err)

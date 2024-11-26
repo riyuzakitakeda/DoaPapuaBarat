@@ -19,6 +19,7 @@ const upload = multer({ storage });
 router.get("/", KelembagaanContoller.findAll);
 router.get("/:id", KelembagaanContoller.findOne);
 router.post("/", KelembagaanContoller.create);
+router.post("/bulk", KelembagaanContoller.bulkCreate);
 router.post("/upload/:id", upload.single("image"), KelembagaanContoller.uploadimage);
 router.put("/:id", KelembagaanContoller.update);
 router.delete("/:id", KelembagaanContoller.delete);
