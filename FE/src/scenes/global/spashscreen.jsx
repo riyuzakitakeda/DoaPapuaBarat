@@ -43,8 +43,8 @@ const SplashScreen = () => {
                             <CircularProgress sx={{
                                 color: "#2B5743",
                             }}
-                            size={50}
-                            thickness={7}
+                                size={50}
+                                thickness={7}
                             />
                         </Box>
                         <Box sx={{
@@ -68,10 +68,10 @@ const SplashScreen = () => {
                             color: '#2B5743',
                         }}>
                             <Typography fontWeight={700}>
-                                E-Data Keagamaan
+                                SISTEM PENDATAAN DATA ORGANISASI KEAGAMAAN (SIPENDOA)
                             </Typography>
                             <Typography fontWeight={700}>
-                                PEMERINTAH PROVINSI PAPUA BARAT
+                                PADA BIRO KESEJAHTERAAN RAKYAT SETDA PAPUA BARAT
                             </Typography>
                         </Box>
                     </Box>

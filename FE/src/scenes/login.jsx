@@ -17,18 +17,18 @@ import { AccountCircle, LockOutlined } from '@mui/icons-material';
 import ShowAlert from '../scenes/global/alert';
 import { useTheme } from '@mui/system';
 
-function Copyright(props) {
-    return (
-        <Typography variant="body2" color="darkslategray" align="center" {...props}>
-            {'Copyright © '}
-            <Link color="inherit" href="https://diskominfo.makassarkota.go.id/">
-                Diskominfo Kota Makassar
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
+// function Copyright(props) {
+//     return (
+//         <Typography variant="body2" color="darkslategray" align="center" {...props}>
+//             {'Copyright © '}
+//             <Link color="inherit" href="https://diskominfo.makassarkota.go.id/">
+//                 Diskominfo Kota Makassar
+//             </Link>{' '}
+//             {new Date().getFullYear()}
+//             {'.'}
+//         </Typography>
+//     );
+// }
 
 const defaultTheme = createTheme();
 const styles = {

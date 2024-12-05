@@ -1,8 +1,9 @@
 {
   "files": {
     "main.css": "/static/css/main.e6c13ad2.css",
-    "main.js": "/static/js/main.c61fbabd.js",
-    "static/js/787.fd89d8cc.chunk.js": "/static/js/787.fd89d8cc.chunk.js",
+    "main.js": "/static/js/main.81c5e29b.js",
+    "static/js/787.7a4a42c7.chunk.js": "/static/js/787.7a4a42c7.chunk.js",
+    "static/media/logoPemprov.png": "/static/media/logoPemprov.7fc371d5813d21eb2213.png",
     "static/media/pimpinan.png": "/static/media/pimpinan.749416abf1097564b8c7.png",
     "static/media/landing_1.png": "/static/media/landing_1.3853abe2edd045a01a3a.png",
     "static/media/tentang_1.jpeg": "/static/media/tentang_1.d4190b28b62247ac9c24.jpeg",
@@ -11,16 +12,15 @@
     "static/media/tetangkami_bg.jpeg": "/static/media/tetangkami_bg.4422473c6e6b4802f3e4.jpeg",
     "static/media/tentang_2.png": "/static/media/tentang_2.b9c7dd75388011142939.png",
     "static/media/dashboard_image.png": "/static/media/dashboard_image.ebf48fa495f992548e47.png",
-    "static/media/logoPemprov.png": "/static/media/logoPemprov.d34efc33ab2342548aac.png",
-    "static/media/logo_refleksi.png": "/static/media/logo_refleksi.8f8557df2d9185340b68.png",
-    "static/media/logo_title.png": "/static/media/logo_title.c7c104f961086afbb0be.png",
+    "static/media/logo_refleksi.png": "/static/media/logo_refleksi.44eb87ec46635c8c8962.png",
+    "static/media/logo_title.png": "/static/media/logo_title.44eb87ec46635c8c8962.png",
     "index.html": "/index.html",
     "main.e6c13ad2.css.map": "/static/css/main.e6c13ad2.css.map",
-    "main.c61fbabd.js.map": "/static/js/main.c61fbabd.js.map",
-    "787.fd89d8cc.chunk.js.map": "/static/js/787.fd89d8cc.chunk.js.map"
+    "main.81c5e29b.js.map": "/static/js/main.81c5e29b.js.map",
+    "787.7a4a42c7.chunk.js.map": "/static/js/787.7a4a42c7.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e6c13ad2.css",
-    "static/js/main.c61fbabd.js"
+    "static/js/main.81c5e29b.js"
   ]
 }
